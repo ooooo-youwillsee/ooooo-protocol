@@ -5,7 +5,6 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.ooooo.protocol.core.Invocation;
 import com.ooooo.protocol.core.Protocol;
 import com.ooooo.protocol.core.exception.APIException;
 import org.springframework.context.ApplicationContext;
@@ -132,12 +131,19 @@ public class APIServiceUtil {
         return stringObjectMap;
     }
 
-    public static <T extends Annotation> T checkMethodAnnotation(Method method, Class<T> annotationClass) {
+    public static <T extends Annotation> T getAnnotation(Method method, Class<T> annotationClass) {
         T t = AnnotatedElementUtils.getMergedAnnotation(method,annotationClass);
         if (t == null) {
             throw new APIException("There is not @" + annotationClass.getSimpleName() + " in method");
         }
         return t;
+    }
+
+    public static Object getArgument(Object[] args, int i) {
+        if (args == null || i >= args.length) {
+            return null;
+        }
+        return args[i];
     }
 
 }

@@ -28,8 +28,6 @@ public class ProtocolProperties {
 
     private String desc;
 
-    private boolean debug = false;
-
     /**
      * @see TraceProtocol
      * @see TraceService

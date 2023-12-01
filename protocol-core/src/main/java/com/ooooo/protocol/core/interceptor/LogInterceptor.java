@@ -2,6 +2,7 @@ package com.ooooo.protocol.core.interceptor;
 
 
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.ooooo.protocol.core.Invocation;
 import com.ooooo.protocol.core.constants.InterceptorType;
 import com.ooooo.protocol.core.constants.ProtocolConstants;
@@ -34,7 +35,10 @@ public final class LogInterceptor implements Interceptor {
             throwable = t;
             throw t;
         } finally {
-            log(invocation, result, throwable);
+            try {
+                log(invocation, result, throwable);
+            } catch (Throwable ignored) {
+            }
         }
 
         return result;
@@ -50,11 +54,19 @@ public final class LogInterceptor implements Interceptor {
         String url = apiMethodConfig.getUrl();
         String cost = getCost();
 
-        String requestLog = String.format("protocolId: %s, requestId: %s, invoke: [%s]->%s, params: %s ", protocolId,
-                requestId, note, url, toJSONString(invocation.getArguments()));
+        // combine request and response log
+        String requestLog = APIServiceContext.getAttachment(ProtocolConstants.REQUEST_LOG_KEY);
+        if (StrUtil.isBlank(requestLog)) {
+            requestLog = String.format("protocolId: %s, requestId: %s, invoke: [%s]->%s, params: %s ", protocolId,
+                    requestId, note, url, toJSONString(invocation.getArguments()));
+        }
         log.info(requestLog);
-        String responseLog = String.format("protocolId: %s, requestId: %s, invoke: [%s]<-%s, %s, result: %s",
-                protocolId, requestId, note, url, cost, toJSONString(result));
+
+        String responseLog = APIServiceContext.getAttachment(ProtocolConstants.RESPONSE_LOG_KEY);
+        if (StrUtil.isBlank(responseLog)) {
+            responseLog = String.format("protocolId: %s, requestId: %s, invoke: [%s]<-%s, %s, result: %s", protocolId
+                    , requestId, note, url, cost, toJSONString(result));
+        }
         log.info(responseLog);
     }
 

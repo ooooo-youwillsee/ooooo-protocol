@@ -45,7 +45,7 @@ public class DubboInvocation implements Invocation {
     }
 
     private DubboMapping getDubboMapping() {
-        return APIServiceUtil.checkMethodAnnotation(invocation.getMethod(), DubboMapping.class);
+        return APIServiceUtil.getAnnotation(invocation.getMethod(), DubboMapping.class);
     }
 
     @Override

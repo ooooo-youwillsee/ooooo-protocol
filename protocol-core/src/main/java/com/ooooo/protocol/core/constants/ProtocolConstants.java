@@ -24,7 +24,9 @@ public interface ProtocolConstants {
 
     String REQUEST_ID_KEY = "_REQUEST_ID";
 
-    String LOG_REMARK_KEY = "_LOG_REMARK";
+    String REQUEST_LOG_KEY = "_REQUEST_LOG";
+
+    String RESPONSE_LOG_KEY = "_RESPONSE_LOG";
 
     String STOP_WATCH_KEY = "_STOP_WATCH";
 

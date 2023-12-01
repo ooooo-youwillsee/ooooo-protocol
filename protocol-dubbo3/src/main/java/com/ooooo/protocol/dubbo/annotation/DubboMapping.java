@@ -1,4 +1,4 @@
-package com.ooooo.protocol.dubbo.request;
+package com.ooooo.protocol.dubbo.annotation;
 
 import com.ooooo.protocol.core.annotation.APIMapping;
 import org.springframework.core.annotation.AliasFor;
