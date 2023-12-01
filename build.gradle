@@ -1,0 +1,44 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.15'
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+    }
+
+    // @see https://github.com/spring-gradle-plugins/dependency-management-plugin
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.6"
+            mavenBom 'org.springframework.boot:spring-boot-starter-parent:2.6.15'
+        }
+        dependencies {
+            dependency 'com.alibaba:fastjson:1.2.83'
+            dependency 'cn.hutool:hutool-all:5.7.22'
+            dependency 'com.auth0:java-jwt:3.19.0'
+            dependency 'org.bouncycastle:bcprov-jdk15to18:1.73'
+            dependency 'mysql:mysql-connector-java:8.0.27'
+            dependency 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+            dependency 'org.apache.dubbo:dubbo:3.1.11'
+            dependency 'com.alibaba.nacos:nacos-client:2.1.2'
+            dependency 'org.apache.curator:curator-x-discovery:4.2.0'
+            dependency 'org.apache.dubbo:dubbo-spring-boot-starter:3.1.11'
+        }
+    }
+
+    dependencies {
+        compileOnly('org.projectlombok:lombok:1.18.26')
+        testCompileOnly('org.projectlombok:lombok:1.18.26')
+        annotationProcessor('org.projectlombok:lombok:1.18.26')
+        testAnnotationProcessor('org.projectlombok:lombok:1.18.26')
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

@@ -1,0 +1,8 @@
+dependencies {
+    implementation('org.springframework.cloud:spring-cloud-context')
+    api('org.springframework.boot:spring-boot-starter')
+    api('cn.hutool:hutool-all')
+    api('com.alibaba:fastjson')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}

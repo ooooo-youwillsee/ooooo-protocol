@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: protocol-core
+
+ooooo:
+  protocol:
+    demo:
+      base-packages: com.ooooo.protocol.core.service.**
+      protocol-class-name: com.ooooo.protocol.core.request.DemoProtocol
+      config:
+        a: b

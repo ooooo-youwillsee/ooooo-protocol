@@ -1,0 +1,6 @@
+rootProject.name = 'ooooo-protocol'
+
+include 'protocol-core'
+include 'protocol-dubbo'
+include 'protocol-thrift'
+include 'protocol-http'
