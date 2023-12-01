@@ -4,14 +4,12 @@ import cn.hutool.core.util.StrUtil;
 import com.ooooo.protocol.core.Invocation;
 import com.ooooo.protocol.core.Protocol;
 import com.ooooo.protocol.core.context.APIServiceContext;
-import com.ooooo.protocol.core.exception.APIException;
+import com.ooooo.protocol.core.exception.APIServiceException;
 import com.ooooo.protocol.core.request.ProtocolProperties;
 import com.ooooo.protocol.core.util.APIServiceUtil;
 import com.ooooo.protocol.http.util.RestTemplateBuilder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,7 +23,6 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -90,7 +87,7 @@ public class HttpProtocol implements Protocol {
                 body = null;
                 break;
             default:
-                throw new APIException("contentType['" + contentType + "'] not handle");
+                throw new APIServiceException("contentType['" + contentType + "'] not handle");
         }
         HttpProtocolConfig config = getConfig(invocation);
         URI uri = getURI(invocation, config);
@@ -105,7 +102,7 @@ public class HttpProtocol implements Protocol {
     // 子类可以重写
     protected Object handleResponseEntity(ResponseEntity<byte[]> entity) {
         if (!entity.getStatusCode().equals(HttpStatus.OK)) {
-            throw new APIException(entity.getStatusCode().toString(), new String(entity.getBody(), getCharset(entity)));
+            throw new APIServiceException(entity.getStatusCode().toString(), new String(entity.getBody(), getCharset(entity)));
         }
 
         Method method = APIServiceContext.getAPIMethodConfig().getMethod();
@@ -144,7 +141,7 @@ public class HttpProtocol implements Protocol {
      */
     protected Charset getCharset(ResponseEntity<byte[]> responseEntity) {
         if (responseEntity == null) {
-            throw new APIException("responseEntity is null");
+            throw new APIServiceException("responseEntity is null");
         }
         MediaType contentType = responseEntity.getHeaders().getContentType();
         if (contentType == null) {

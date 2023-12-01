@@ -2,6 +2,7 @@ package com.ooooo.protocol.core.request;
 
 import com.alibaba.fastjson.JSON;
 import com.ooooo.protocol.core.Protocol;
+import com.ooooo.protocol.core.beans.ProtocolWrapper;
 import com.ooooo.protocol.core.service.MockService;
 import com.ooooo.protocol.core.service.TraceService;
 import lombok.Data;
@@ -24,7 +25,9 @@ public class ProtocolProperties {
     /**
      * @see Protocol
      */
-    private String protocolClassName;
+    private Class<? extends Protocol> protocolClass;
+
+    private List<Class<? extends ProtocolWrapper>> protocolWrapperClass;
 
     private String desc;
 
@@ -53,13 +56,6 @@ public class ProtocolProperties {
      * Map&lt;String, Object&gt; 就是一个 config 对象
      */
     private Map<String, Map<String, Object>> configs = new LinkedHashMap<>();
-
-    public Class<?> resolveProtocolClass() {
-        if (protocolClassName == null) {
-            throw new IllegalArgumentException("property ['protocolClassName'] of ProtocolProperties is null");
-        }
-        return ClassUtils.resolveClassName(protocolClassName, Thread.currentThread().getContextClassLoader());
-    }
 
     /**
      * @param clazz

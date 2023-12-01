@@ -7,7 +7,7 @@ ooooo:
     dubbo:
       base-packages:
         - com.ooooo.protocol.dubbo.service.**
-      protocol-class-name: com.ooooo.protocol.dubbo.request.DubboProtocol
+      protocol-class: com.ooooo.protocol.dubbo.request.DubboProtocol
       config:
         application:
           name: demo

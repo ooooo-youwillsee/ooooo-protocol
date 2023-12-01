@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.ooooo.protocol.core.Protocol;
-import com.ooooo.protocol.core.exception.APIException;
+import com.ooooo.protocol.core.exception.APIServiceException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -77,13 +77,13 @@ public class APIServiceUtil {
             return obj;
         }
 
-        throw new APIException("The data isn't handled. data: " + data);
+        throw new APIServiceException("The data isn't handled. data: " + data);
     }
 
 
     public static void checkConfigValue(String value, String configKey) {
         if (StrUtil.isBlank(value)) {
-            throw new APIException("the property['" + configKey + "'] isn't exist in config");
+            throw new APIServiceException("the property['" + configKey + "'] isn't exist in config");
         }
     }
 
@@ -99,7 +99,7 @@ public class APIServiceUtil {
                 return applicationContext.getBean(beanName, Protocol.class);
             }
         }
-        throw new APIException("protocolId['" + protocolId + "'] of" +
+        throw new APIServiceException("protocolId['" + protocolId + "'] of" +
                 " " + Protocol.class + " doesn't configure");
     }
 
@@ -134,7 +134,7 @@ public class APIServiceUtil {
     public static <T extends Annotation> T getAnnotation(Method method, Class<T> annotationClass) {
         T t = AnnotatedElementUtils.getMergedAnnotation(method,annotationClass);
         if (t == null) {
-            throw new APIException("There is not @" + annotationClass.getSimpleName() + " in method");
+            throw new APIServiceException("There is not @" + annotationClass.getSimpleName() + " in method");
         }
         return t;
     }

@@ -1,7 +1,7 @@
 package com.ooooo.protocol.http.request;
 
 import com.ooooo.protocol.core.Invocation;
-import com.ooooo.protocol.core.exception.APIException;
+import com.ooooo.protocol.core.exception.APIServiceException;
 import com.ooooo.protocol.core.util.APIServiceUtil;
 import com.ooooo.protocol.http.annotation.HttpMapping;
 import org.springframework.http.HttpHeaders;
@@ -130,7 +130,7 @@ public class HttpInvocation implements Invocation {
             return (byte[]) arg;
         }
 
-        throw new APIException("The arg0 must be type of byte[] when content-type is APPLICATION_OCTET_STREAM_VALUE");
+        throw new APIServiceException("The arg0 must be type of byte[] when content-type is APPLICATION_OCTET_STREAM_VALUE");
     }
 
     public Map<String, String> getQueryParams() {

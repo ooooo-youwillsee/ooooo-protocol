@@ -18,7 +18,9 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.PriorityOrdered;
+import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -92,9 +94,14 @@ public class APIServiceProtocolPropertiesConfigurer implements BeanDefinitionReg
     protected AnnotatedGenericBeanDefinition getBeanDefinition(BeanDefinitionRegistry registry, String protocolId,
                                                                ProtocolProperties protocolProperties) {
         List<Class<? extends ProtocolWrapper>> wrapperClasses =
-                protocolWrapperHelper.getProtocolWrapperClasses();
+                new ArrayList<>(protocolWrapperHelper.getProtocolWrapperClasses());
+        if (CollUtil.isNotEmpty(protocolProperties.getProtocolWrapperClass())) {
+            wrapperClasses.addAll(protocolProperties.getProtocolWrapperClass());
+            wrapperClasses.sort(AnnotationAwareOrderComparator.INSTANCE);
+        }
+
         // real protocol bean Definition
-        Class<?> protocolClass = protocolProperties.resolveProtocolClass();
+        Class<?> protocolClass = protocolProperties.getProtocolClass();
         AnnotatedGenericBeanDefinition beanDefinition = new AnnotatedGenericBeanDefinition(protocolClass);
         beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(protocolProperties);
 

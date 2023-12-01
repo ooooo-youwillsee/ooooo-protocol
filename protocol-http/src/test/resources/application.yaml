@@ -1,0 +1,14 @@
+server:
+  port: 1232
+
+ooooo:
+  protocol:
+    http:
+      base-packages:
+        - com.ooooo.protocol.http.service.**
+      protocol-class: com.ooooo.protocol.http.request.HttpProtocol
+      desc: HTTP请求
+      mock: true
+      trace: true
+      config:
+        url: http://localhost:1232

@@ -3,8 +3,11 @@ package com.ooooo.protocol.core;
 import com.ooooo.protocol.core.annotation.IAPIService;
 import com.ooooo.protocol.core.bootstrap.APIServiceProtocolPropertiesRefresher;
 import com.ooooo.protocol.core.context.APIServiceConfig;
+import com.ooooo.protocol.core.request.AProtocolWrapper;
+import com.ooooo.protocol.core.request.BProtocolWrapper;
 import com.ooooo.protocol.core.service.HelloService1;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -63,12 +66,19 @@ public class DemoProtocolTest {
 
         // test refresh protocol-class
         {
-            TestPropertyValues.of("ooooo.protocol.demo.protocol-class-name = com.ooooo.protocol.core.request" +
+            TestPropertyValues.of("ooooo.protocol.demo.protocol-class = com.ooooo.protocol.core.request" +
                     ".DemoProtocol2").applyTo(environment);
             refresher.refreshProtocolBean();
 
             assertEquals("DemoProtocol2", bean.invokerRefreshValue());
         }
+    }
+
+
+    @AfterEach
+    void afterEach() {
+        assertEquals("A", AProtocolWrapper.message);
+        assertEquals("B", BProtocolWrapper.message);
     }
 
 }
