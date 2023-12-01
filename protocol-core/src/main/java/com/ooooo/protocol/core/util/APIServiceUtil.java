@@ -5,12 +5,16 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.ooooo.protocol.core.Invocation;
 import com.ooooo.protocol.core.Protocol;
 import com.ooooo.protocol.core.exception.APIException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
@@ -121,10 +125,19 @@ public class APIServiceUtil {
             return (Map<String, Object>) obj;
         }
 
-        Map<String, Object> stringObjectMap = JSON.parseObject(JSON.toJSONString(obj), new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> stringObjectMap = JSON.parseObject(JSON.toJSONString(obj), new TypeReference<Map<String,
+                Object>>() {});
         // override value, support byte[]
         BeanUtil.beanToMap(obj, stringObjectMap, CopyOptions.create());
         return stringObjectMap;
+    }
+
+    public static <T extends Annotation> T checkMethodAnnotation(Method method, Class<T> annotationClass) {
+        T t = AnnotatedElementUtils.getMergedAnnotation(method,annotationClass);
+        if (t == null) {
+            throw new APIException("There is not @" + annotationClass.getSimpleName() + " in method");
+        }
+        return t;
     }
 
 }

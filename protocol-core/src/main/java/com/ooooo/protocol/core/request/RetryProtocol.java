@@ -6,7 +6,6 @@ import com.ooooo.protocol.core.Protocol;
 import com.ooooo.protocol.core.beans.ProtocolWrapper;
 import com.ooooo.protocol.core.constants.ProtocolWrapperOrder;
 import com.ooooo.protocol.core.context.APIServiceContext;
-import com.ooooo.protocol.core.exception.APIException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.util.ClassUtils;
@@ -35,14 +34,14 @@ public class RetryProtocol extends ProtocolWrapper {
     public Object execute(Invocation invocation) throws Throwable {
         int retry = getRetryTimes(invocation);
 
-        for (int i = 0; i < retry; i++) {
+        for (int i = 0; i < retry - 1; i++) {
             try {
                 return protocol.execute(invocation);
             } catch (Throwable e) {
                 log.warn("retry {} times to execute ", i + 1, e);
             }
         }
-        throw new APIException("retry execute error");
+        return protocol.execute(invocation);
     }
 
 

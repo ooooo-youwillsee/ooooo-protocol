@@ -2,8 +2,11 @@ package com.ooooo.protocol.core.context;
 
 import com.ooooo.protocol.core.annotation.APIMapping;
 import com.ooooo.protocol.core.exception.APIException;
+import com.ooooo.protocol.core.util.APIServiceUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Method;
 
@@ -24,10 +27,7 @@ public class APIMethodConfig {
     private String url;
 
     public APIMethodConfig(Method method) {
-        APIMapping apiMapping = method.getAnnotation(APIMapping.class);
-        if (apiMapping == null) {
-            throw new APIException("there is no @APIMapping in method " + method);
-        }
+        APIMapping apiMapping = APIServiceUtil.checkMethodAnnotation(method, APIMapping.class);
         this.note = apiMapping.note();
         this.url= apiMapping.value();
         this.methodName = method.getName();

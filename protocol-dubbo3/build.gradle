@@ -1,0 +1,9 @@
+dependencies {
+    api(project(':protocol-core'))
+
+    api('org.apache.dubbo:dubbo')
+
+    // dubbo registry nacos
+    testImplementation('com.alibaba.nacos:nacos-client')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}

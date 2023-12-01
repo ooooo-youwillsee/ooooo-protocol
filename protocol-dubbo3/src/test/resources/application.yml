@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: protocol-dubbo3-test
+
+ooooo:
+  protocol:
+    dubbo:
+      base-packages:
+        - com.ooooo.protocol.dubbo.service.**
+      protocol-class-name: com.ooooo.protocol.dubbo.request.DubboProtocol
+      config:
+        application:
+          name: demo
+          registry-type: service
+        registry:
+          address: nacos://127.0.0.1:8848
+          group: DUBBO_SERVICE_GROUP
+          parameters:
+            namespace: test
+          # optional
+        metadataReport:
+          address: nacos://127.0.0.1:8848
+          group: DUBBO_SERVICE_GROUP
+          parameters:
+            namespace: test
