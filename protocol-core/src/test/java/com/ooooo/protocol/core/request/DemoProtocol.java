@@ -3,7 +3,7 @@ package com.ooooo.protocol.core.request;
 import com.ooooo.protocol.core.Protocol;
 import com.ooooo.protocol.core.Invocation;
 import com.ooooo.protocol.core.context.APIServiceContext;
-import com.ooooo.protocol.core.service.HelloService1;
+import com.ooooo.protocol.core.service.HelloService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,18 +24,17 @@ public class DemoProtocol implements Protocol {
         String data = null;
 
         switch (url) {
-            case HelloService1.INVOKE_NORMAL_METHOD:
+            case HelloService.INVOKE_NORMAL_METHOD:
                 data = (String) args[0];
                 break;
-            case HelloService1.INVOKE_DEFAULT_VALUE:
-                data = ((HelloService1.DefaultValueHolder) args[0]).getName();
+            case HelloService.INVOKE_DEFAULT_VALUE:
+                data = ((HelloService.DefaultValueHolder) args[0]).getName();
                 break;
-            case HelloService1.INVOKER_REFRESH_VALUE:
+            case HelloService.INVOKER_REFRESH_VALUE:
                 data = (String) properties.getConfig().get("a");
                 break;
 
         }
        return data;
     }
-
 }

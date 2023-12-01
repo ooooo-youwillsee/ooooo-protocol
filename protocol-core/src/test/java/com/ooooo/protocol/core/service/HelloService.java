@@ -5,13 +5,13 @@ import com.ooooo.protocol.core.annotation.APIService;
 import lombok.Data;
 
 @APIService
-public interface HelloService1 {
+public interface HelloService {
 
-    String INVOKE_NORMAL_METHOD = "HelloService1#invokeNormalMethod";
+    String INVOKE_NORMAL_METHOD = "HelloService#invokeNormalMethod";
 
-    String INVOKE_DEFAULT_VALUE = "HelloService1#invokeDefaultValue";
+    String INVOKE_DEFAULT_VALUE = "HelloService#invokeDefaultValue";
 
-    String INVOKER_REFRESH_VALUE = "HelloService1#invokerRefreshValue";
+    String INVOKER_REFRESH_VALUE = "HelloService#invokerRefreshValue";
 
     @APIMapping(INVOKE_NORMAL_METHOD)
     String invokeNormalMethod(String name);

@@ -5,7 +5,7 @@ import com.ooooo.protocol.core.bootstrap.APIServiceProtocolPropertiesRefresher;
 import com.ooooo.protocol.core.context.APIServiceConfig;
 import com.ooooo.protocol.core.request.AProtocolWrapper;
 import com.ooooo.protocol.core.request.BProtocolWrapper;
-import com.ooooo.protocol.core.service.HelloService1;
+import com.ooooo.protocol.core.service.HelloService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class DemoProtocolTest {
 
     @Test
     public void testApiService() {
-        HelloService1 bean = context.getBean(HelloService1.class);
+        HelloService bean = context.getBean(HelloService.class);
         assertEquals("123", bean.invokeNormalMethod("123"));
         IAPIService service = (IAPIService) bean;
         APIServiceConfig apiServiceConfig = service.getAPIServiceConfig();
@@ -44,7 +44,7 @@ public class DemoProtocolTest {
 
     @Test
     public void testApiServiceWithDefaultMethod() {
-        HelloService1 bean = context.getBean(HelloService1.class);
+        HelloService bean = context.getBean(HelloService.class);
 
         assertEquals("123123", bean.invokeDefaultMethod("123"));
         assertEquals("123", bean.invokeDefaultMethodForNormalMethod("123"));
@@ -53,7 +53,7 @@ public class DemoProtocolTest {
     @Test
     @SneakyThrows
     public void testProtocolScanRefresh() {
-        HelloService1 bean = context.getBean(HelloService1.class);
+        HelloService bean = context.getBean(HelloService.class);
         assertEquals("b", bean.invokerRefreshValue());
 
         // test refresh config

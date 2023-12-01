@@ -10,7 +10,7 @@ ooooo:
         - com.ooooo.protocol.core.service.**
       # 协议类
       protocol-class: com.ooooo.protocol.core.request.DemoProtocol
-      # 自定以包装类，可以用于填充默认参数，校验参数，解析结果
+      # 自定义包装类，可以用于填充默认参数，校验参数，解析结果
       protocol-wrapper-class:
         - com.ooooo.protocol.core.request.AProtocolWrapper
         - com.ooooo.protocol.core.request.BProtocolWrapper
