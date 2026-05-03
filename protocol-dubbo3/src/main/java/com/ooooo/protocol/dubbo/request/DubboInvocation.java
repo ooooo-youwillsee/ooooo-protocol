@@ -3,6 +3,7 @@ package com.ooooo.protocol.dubbo.request;
 import cn.hutool.core.util.StrUtil;
 import com.ooooo.protocol.core.Invocation;
 import com.ooooo.protocol.core.util.APIServiceUtil;
+import com.ooooo.protocol.dubbo.annotation.DubboMapping;
 
 import java.lang.reflect.Method;
 

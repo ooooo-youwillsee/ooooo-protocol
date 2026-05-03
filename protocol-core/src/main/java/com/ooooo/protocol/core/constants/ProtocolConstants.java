@@ -1,6 +1,5 @@
 package com.ooooo.protocol.core.constants;
 
-import com.ooooo.protocol.core.Protocol;
 import com.ooooo.protocol.core.annotation.APIMapping;
 
 /**

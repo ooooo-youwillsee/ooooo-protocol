@@ -4,4 +4,19 @@ dependencies {
     api('org.springframework.boot:spring-boot-starter-web')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+}
+
+// Force a single JUnit 5 / Platform stack on the test classpath (IDE + Gradle), avoiding mixed BOM ages.
+['testImplementation', 'testCompileClasspath', 'testRuntimeClasspath'].each { name ->
+    configurations.named(name).configure {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.junit.platform') {
+                details.useVersion('1.11.4')
+            }
+            if (details.requested.group == 'org.junit.jupiter') {
+                details.useVersion('5.11.4')
+            }
+        }
+    }
 }

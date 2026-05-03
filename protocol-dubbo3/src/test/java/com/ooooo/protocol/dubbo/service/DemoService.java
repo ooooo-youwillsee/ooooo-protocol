@@ -1,7 +1,7 @@
 package com.ooooo.protocol.dubbo.service;
 
 import com.ooooo.protocol.core.annotation.APIService;
-import com.ooooo.protocol.dubbo.request.DubboMapping;
+import com.ooooo.protocol.dubbo.annotation.DubboMapping;
 
 import java.util.Map;
 

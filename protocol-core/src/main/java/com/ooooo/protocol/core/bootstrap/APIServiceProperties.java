@@ -5,7 +5,6 @@ import com.ooooo.protocol.core.request.ProtocolProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

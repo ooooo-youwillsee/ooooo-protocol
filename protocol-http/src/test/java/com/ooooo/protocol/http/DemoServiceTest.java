@@ -1,5 +1,4 @@
-package com.ooooo.protocol.http
-        ;
+package com.ooooo.protocol.http;
 
 import cn.hutool.core.io.FileUtil;
 import com.ooooo.protocol.http.service.DemoService;
